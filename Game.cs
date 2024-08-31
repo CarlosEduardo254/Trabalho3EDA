@@ -13,11 +13,15 @@ namespace Trabalho3EDA
             private Dictionary<string, string> parent;
             private Dictionary<string, Territorio> territorios;
 
+
             public GameUniaoBusca()
             {
                 parent = new Dictionary<string, string>();
                 territorios = new Dictionary<string, Territorio>();
             }
+
+            public List<string> GetReis() => territorios.Keys.ToList();
+
 
             public void AdicionarTerritorio(string rei)
             {
@@ -41,11 +45,25 @@ namespace Trabalho3EDA
                 }
             }
 
+            public int ContarVassalos(string rei)
+            {
+                if (territorios.ContainsKey(rei))
+                {
+                    return territorios[rei].numeroVassalos();
+                }
+                else
+                {
+                    Console.WriteLine($"Território com o Rei {rei} não foi encontrado.");
+                    return -1;
+                }
+            }
+
             public string Find(string vassalo)
             {
                 if (!parent.ContainsKey(vassalo))
                 {
-                    throw new KeyNotFoundException($"O vassalo '{vassalo}' não está presente no dicionário.");
+                    Console.WriteLine($"A pessoa '{vassalo}' não existe.");
+                    return null;
                 }
 
                 if (parent[vassalo] != vassalo)
@@ -56,7 +74,7 @@ namespace Trabalho3EDA
                 return parent[vassalo];
             }
 
-            public void Union(string rei1, string rei2)
+            public void Uniao(string rei1, string rei2)
             {
                 string root1 = Find(rei1);
                 string root2 = Find(rei2);
@@ -92,7 +110,8 @@ namespace Trabalho3EDA
             {
                 if (!parent.ContainsKey(vassalo1) || !parent.ContainsKey(vassalo2))
                 {
-                    throw new KeyNotFoundException("Um ou ambos os vassalos não estão presentes no dicionário.");
+                    Console.WriteLine("Um ou ambos os vassalos não estão presentes no dicionário.");
+                    return false;
                 }
 
                 return Find(vassalo1) == Find(vassalo2);
@@ -100,10 +119,13 @@ namespace Trabalho3EDA
 
             public List<string> ImprimirVassalos(string rei)
             {
-                string root = Find(rei);
-                if (territorios.ContainsKey(root))
+                if (rei != null && territorios.ContainsKey(rei))
                 {
-                    return territorios[root].Vassalos;
+                    return territorios[rei].Vassalos;
+                }
+                else
+                {
+                    Console.WriteLine($"'{rei}' não é um rei ou não existe no sistema.");
                 }
                 return new List<string>();
             }

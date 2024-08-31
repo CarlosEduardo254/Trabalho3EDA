@@ -25,7 +25,7 @@ namespace Trabalho3EDA
 
         public int numeroVassalos()
         {
-            return Vassalos.Count;
+            return Vassalos.Count - 1;
         }
     }
 }
