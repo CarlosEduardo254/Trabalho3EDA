@@ -74,7 +74,7 @@ namespace Trabalho3EDA
 
                         if(busca != null)
                         {
-                            Console.WriteLine($"{busca} encontrado/a.");
+                            Console.WriteLine($"{pessoaBuscada} encontrado/a.");
                         } else
                         {
                             Console.WriteLine($"{pessoaBuscada} não encontrado.");
